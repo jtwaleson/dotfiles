@@ -1,0 +1,4 @@
+clear Control
+clear Lock
+add Control    = Control_L Control_R
+keycode 66 = comma
