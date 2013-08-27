@@ -1,3 +1,5 @@
 --type-set=coffee=.coffee
 --type-set=ts=.ts
 --ignore-dir=node_modules
+--type-set=erb=.erb
+--type-set=puppet=.pp
