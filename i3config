@@ -135,6 +135,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 bindsym XF86ScreenSaver exec "i3lock"
 bindsym XF86Sleep exec "i3lock && sudo pm-suspend"
+bindsym $mod+Shift+S exec "gnome-screenshot --window --remove-border"
 bindsym $mod+O move scratchpad
 bindsym $mod+Shift+O scratchpad show
 bindsym XF86AudioMute exec "mute"
