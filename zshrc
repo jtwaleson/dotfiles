@@ -46,7 +46,7 @@ alias screenslaptop='xrandr --auto --output HDMI2 --off --output LVDS1 --mode 14
 autoload -U compinit && compinit
 
 function mcd() { mkdir "$@"; cd "$@" }
-export GIT_AUTHOR_NAME="Jouke Waleson"
-export GIT_AUTHOR_EMAIL="jouke.waleson@mendix.com"
-export GIT_COMMITTER_NAME="Jouke Waleson"
-export GIT_COMMITTER_EMAIL="jouke.waleson@mendix.com"
+#export GIT_AUTHOR_NAME="Jouke Waleson"
+#export GIT_AUTHOR_EMAIL="jouke.waleson@mendix.com"
+#export GIT_COMMITTER_NAME="Jouke Waleson"
+#export GIT_COMMITTER_EMAIL="jouke.waleson@mendix.com"
