@@ -39,7 +39,7 @@ export PATH=/home/jouke/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr
 alias g='git'
 alias screensexpanded='xrandr --auto --output HDMI2 --mode 1920x1080 --output LVDS1 --mode 1440x900 --left-of HDMI2'
 alias screensbigonly='xrandr --auto --output HDMI2 --mode 1920x1080 --output LVDS1 --off'
-alias screenslaptop='xrandr --auto --output HDMI2 --off --output LVDS1 --mode 1440x900'
+alias screenslaptop='xrandr --auto --output HDMI2 --off --output LVDS1 --mode 1440x900 --output VGA1 --off'
 
 [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && . ~/.autojump/etc/profile.d/autojump.zsh
 
