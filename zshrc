@@ -34,7 +34,7 @@ plugins=(git python coffee autojump)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/jouke/bin:/opt/vagrant/bin
+export PATH=/home/jouke/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/jouke/bin:/opt/vagrant/bin
 
 alias g='git'
 alias screensexpanded='xrandr --auto --output HDMI2 --mode 1920x1080 --output LVDS1 --mode 1440x900 --left-of HDMI2'
