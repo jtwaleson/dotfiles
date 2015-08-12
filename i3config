@@ -132,18 +132,27 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-bindsym $mod+r mode "resize"
-bindsym XF86ScreenSaver exec "i3lock"
-bindsym XF86Sleep exec "i3lock && sudo pm-suspend"
-bindsym $mod+Shift+S exec "gnome-screenshot --window --remove-border"
-bindsym $mod+O move scratchpad
-bindsym $mod+Shift+O scratchpad show
-bindsym XF86AudioMute exec "mute"
-bindsym XF86AudioRaiseVolume exec "adj-volume 3+"
-bindsym XF86AudioLowerVolume exec "adj-volume 3-"
+#F1-F4
+bindsym XF86AudioMute exec "amixer set Master toggle"
+bindsym XF86AudioLowerVolume exec "amixer set Master playback 10%-"
+bindsym XF86AudioRaiseVolume exec "amixer set Master playback 10%+ unmute"
+bindsym XF86AudioMicMute exec "amixer set Capture toggle"
 
-bindsym $mod+F1 exec "i3lock"
-bindsym $mod+F2 exec "i3lock && sudo pm-suspend"
+#F5-F8
+bindsym XF86MonBrightnessUp exec "xbacklight -inc 20"
+bindsym XF86MonBrightnessDown exec "xbacklight -dec 20"
+bindsym XF86Display exec "/home/jouke/bin/rearrange-screens"
+bindsym XF86WLAN exec "wlan-switch wifi"
+
+#F9-F12
+bindsym XF86Tools exec "wlan-switch wwan"
+#bindsym XF86Search exec "???"
+bindsym XF86LaunchA exec "i3lock"
+bindsym XF86Explorer exec "amixer set Master playback mute && i3lock && sudo pm-suspend"
+
+# Others
+bindsym Print exec "gnome-screenshot --window --remove-border"
+bindsym XF86Sleep exec "amixer set Master playback mute && i3lock && sudo pm-suspend"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
