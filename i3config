@@ -141,7 +141,9 @@ bindsym XF86AudioMicMute exec "amixer set Capture toggle"
 #F5-F8
 bindsym XF86MonBrightnessUp exec "xbacklight -inc 20"
 bindsym XF86MonBrightnessDown exec "xbacklight -dec 20"
-bindsym XF86Display exec "/home/jouke/bin/rearrange-screens"
+bindsym XF86Display exec "/home/jouke/bin/rearrange-screens"  # auto expand everything
+bindsym Shift+XF86Display exec "/home/jouke/bin/laptop-only"  # disabling all except for laptop
+bindsym Ctrl+XF86Display exec "xrandr --auto"  # adding mirrored VGA
 bindsym XF86WLAN exec "wlan-switch wifi"
 
 #F9-F12
