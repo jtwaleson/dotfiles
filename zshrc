@@ -29,24 +29,30 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git python coffee autojump)
+plugins=(git python)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/jouke/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/jouke/bin:/opt/vagrant/bin
+export PATH=/home/jouke/node_modules/.bin:/home/jouke/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/jouke/bin:/opt/vagrant/bin:/home/jouke/.gem/ruby/2.1.0/bin
 
-alias g='git'
-alias screensexpanded='xrandr --auto --output HDMI2 --mode 1920x1080 --output LVDS1 --mode 1440x900 --left-of HDMI2'
-alias screensbigonly='xrandr --auto --output HDMI2 --mode 1920x1080 --output LVDS1 --off'
-alias screenslaptop='xrandr --auto --output HDMI2 --off --output LVDS1 --mode 1440x900 --output VGA1 --off'
-
-[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && . ~/.autojump/etc/profile.d/autojump.zsh
+source $HOME/mendix-on
 
 autoload -U compinit && compinit
 
 function mcd() { mkdir "$@"; cd "$@" }
-#export GIT_AUTHOR_NAME="Jouke Waleson"
-#export GIT_AUTHOR_EMAIL="jouke.waleson@mendix.com"
-#export GIT_COMMITTER_NAME="Jouke Waleson"
-#export GIT_COMMITTER_EMAIL="jouke.waleson@mendix.com"
+
+function countdown(){
+   date1=$((`date +%s` + $1)); 
+   while [ "$date1" -ne `date +%s` ]; do 
+     echo -ne "$(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)\r";
+     sleep 0.1
+   done
+}
+function stopwatch(){
+  date1=`date +%s`; 
+   while true; do 
+    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
+    sleep 0.1
+   done
+}
