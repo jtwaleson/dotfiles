@@ -1,0 +1,24 @@
+#!/bin/bash
+
+for i in $(pgrep connect-to-lte | grep -v $$ ); do
+    kill $i;
+    zenity --notification --text="killing $i"
+done
+killall nmcli
+
+nmcli r wifi off
+#nmcli r wwan | grep -q enabled && sudo usb_modeswitch -R -v 1199 -p a001 && zenity --notification --text="resetting modem as it was already enabled"
+nmcli r wwan | grep -q disabled && nmcli r wwan on
+N=0
+MAX=60
+until [ $N -ge $MAX ]; do
+	nmcli | grep cdc-wdm0  -A 4 | grep '1 connection available' && zenity --notification --text="waiting for connection" && sleep 4 && nmcli c up 585a748e-b65b-42a2-95cf-8c87daf033ad && break
+	N=$[$N+1]
+	sleep 1
+done
+if [ $N -ge $MAX ]; then
+	zenity --notification --text="failed to set up LTE"
+else
+	zenity --notification --text="connected"
+fi
+

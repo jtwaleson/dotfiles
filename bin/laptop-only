@@ -1,0 +1,12 @@
+#!/bin/sh
+
+set -x
+DISPLAYS=$(xrandr | grep "\sconnected" | awk '{print $1}')
+
+for d in $DISPLAYS
+do
+    if [ "$d" != "eDP1" ]; then
+        logger "xrandr --output $d --off"
+        xrandr --output $d --off
+    fi
+done

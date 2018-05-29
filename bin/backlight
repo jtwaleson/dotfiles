@@ -1,0 +1,9 @@
+#!/bin/bash
+DIFF=${1:-"0"}
+CUR=$(cat /sys/class/backlight/intel_backlight/brightness)
+NEW=$(( $CUR + $DIFF ))
+MAX=6800
+MIN=100
+NEW=$(( $NEW > $MIN ? $NEW : $MIN ))
+NEW=$(( $NEW < $MAX ? $NEW : $MAX ))
+echo $NEW | sudo tee /sys/class/backlight/intel_backlight/brightness
