@@ -34,7 +34,16 @@ plugins=(git python)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/home/jouke/node_modules/.bin:/home/jouke/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/jouke/bin:/opt/vagrant/bin:/home/jouke/.gem/ruby/2.1.0/bin
+alias g='git'
+alias gfr='git fetch && git rebase'
+alias gv='git commit -av'
+alias gp='git push origin'
+
+export PATH=/home/jouke/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/jouke/bin
+export PATH=$PATH:/home/jouke/.local/node_modules/.bin
+export PATH=$PATH:/usr/lib/go-1.10/bin
+export PATH=$PATH:/home/jouke/go/bin
+#export PATH=/home/jouke/anaconda3/bin:$PATH
 
 source $HOME/mendix-on
 
@@ -56,3 +65,5 @@ function stopwatch(){
     sleep 0.1
    done
 }
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -9,6 +9,8 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+exec feh --bg-scale /home/jouke/.dotfiles/gears0.jpg
+
 set $mod Mod4
 
 # font for window titles. ISO 10646 = Unicode
@@ -139,22 +141,34 @@ bindsym XF86AudioRaiseVolume exec "amixer set Master playback 10%+ unmute"
 bindsym XF86AudioMicMute exec "amixer set Capture toggle"
 
 #F5-F8
-bindsym XF86MonBrightnessUp exec "xbacklight -inc 20"
-bindsym XF86MonBrightnessDown exec "xbacklight -dec 20"
-bindsym XF86Display exec "/home/jouke/bin/rearrange-screens"  # auto expand everything
-bindsym Shift+XF86Display exec "/home/jouke/bin/laptop-only"  # disabling all except for laptop
-bindsym Ctrl+XF86Display exec "xrandr --auto"  # adding mirrored VGA
-bindsym XF86WLAN exec "wlan-switch wifi"
+bindsym XF86MonBrightnessUp exec "/home/jouke/bin/backlight +1000"
+bindsym XF86MonBrightnessDown exec "/home/jouke/bin/backlight -1000"
+# auto expand everything
+bindsym XF86Display exec "/home/jouke/bin/rearrange-screens"
+# disabling all except for laptop
+bindsym Shift+XF86Display exec "/home/jouke/bin/laptop-only"
+# adding mirrored VGA
+bindsym Ctrl+XF86Display exec "xrandr --auto"
+#bindsym XF86WLAN exec "wlan-switch wifi"
 
 #F9-F12
-bindsym XF86Tools exec "wlan-switch wwan"
+bindsym XF86WLAN exec "nmcli r wifi on && nmcli r wwan off"
+bindsym Shift+XF86WLAN exec "/home/jouke/bin/connect-to-lte"
+bindsym Ctrl+XF86WLAN exec "nmcli r wifi off && nmcli r wwan off"
+#bindsym Ctrl+XF86WLAN exec "nmcli r wifi off && nmcli r wwan off"
 #bindsym XF86Search exec "???"
-bindsym XF86LaunchA exec "i3lock"
-bindsym XF86Explorer exec "amixer set Master playback mute && i3lock && sudo pm-suspend"
+bindsym XF86Tools exec "i3lock"
+bindsym Shift+XF86Tools exec "amixer set Master playback mute && i3lock && sudo pm-suspend"
 
 # Others
-bindsym Print exec "gnome-screenshot --window --remove-border"
+bindsym Print exec "sleep 0.1 && gnome-screenshot --display :0 -a 2>/tmp/a >/tmp/a"
+bindsym Shift+Print exec "gnome-screenshot --window --remove-border"
 bindsym XF86Sleep exec "amixer set Master playback mute && i3lock && sudo pm-suspend"
+
+# Spotify
+bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+bindsym XF86AudioNext exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+bindsym XF86AudioPrev exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
