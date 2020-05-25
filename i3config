@@ -9,7 +9,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 exec --no-startup-id nm-applet
-exec feh --bg-scale /home/jouke/.dotfiles/gears0.jpg
+exec feh --bg-scale /home/jouke/dev/dotfiles/gears0.jpg
 
 set $mod Mod4
 
@@ -215,8 +215,8 @@ bindsym XF86AudioPrev exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer
 bar {
         status_command i3status
 }
-for_window [instance=".*google.*"] floating enable
-for_window [instance=".*Navigator.*"] floating enable
+#for_window [instance=".*google.*"] floating enable
+#for_window [instance=".*Navigator.*"] floating enable
 #for_window [window_role="browser"] floating enable
 
 for_window [window_role="pop-up"] floating enable
