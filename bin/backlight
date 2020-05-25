@@ -2,7 +2,7 @@
 DIFF=${1:-"0"}
 CUR=$(cat /sys/class/backlight/intel_backlight/brightness)
 NEW=$(( $CUR + $DIFF ))
-MAX=6800
+MAX=850
 MIN=100
 NEW=$(( $NEW > $MIN ? $NEW : $MIN ))
 NEW=$(( $NEW < $MAX ? $NEW : $MAX ))
