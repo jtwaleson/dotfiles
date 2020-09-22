@@ -106,3 +106,4 @@ source $ZSH/oh-my-zsh.sh
 #
 export PATH="${PATH}:/home/jouke/.local/bin"
 export PATH="${PATH}:/home/jouke/node_modules/.bin"
+export PATH="${PATH}:/home/jouke/dev/dotfiles/bin"

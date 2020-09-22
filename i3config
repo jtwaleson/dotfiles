@@ -170,10 +170,10 @@ bindsym $mod+r mode "resize"
 
 
 #F1-F4
-bindsym XF86AudioMute exec "amixer -D pulse sset Master toggle"
-bindsym XF86AudioLowerVolume exec "amixer -D pulse sset Master playback 10%-"
-bindsym XF86AudioRaiseVolume exec "amixer -D pulse sset Master playback 10%+ unmute"
-bindsym XF86AudioMicMute exec "amixer -D pulse sset Capture toggle"
+bindsym XF86AudioMute exec "/home/jouke/dev/dotfiles/bin/volume mute"
+bindsym XF86AudioLowerVolume exec "/home/jouke/dev/dotfiles/bin/volume down"
+bindsym XF86AudioRaiseVolume exec "/home/jouke/dev/dotfiles/bin/volume up"
+bindsym XF86AudioMicMute exec "/home/jouke/dev/dotfiles/bin/volume mute-mic"
 
 #F5-F8
 bindsym XF86MonBrightnessUp exec "/home/jouke/.local/bin/backlight 100"
@@ -195,12 +195,12 @@ bindsym Ctrl+XF86WLAN exec "nmcli r wifi off && nmcli r wwan off"
 #bindsym XF86Search exec "???"
 bindsym XF86Tools exec "i3lock"
 bindsym $mod+Shift+y exec "i3lock"
-bindsym Shift+XF86Tools exec "amixer -D pulse sset Master playback mute && i3lock && sudo systemctl suspend"
+bindsym Shift+XF86Tools exec "i3lock && sleep 1 && sudo systemctl suspend"
 
 # Others
-bindsym Print exec "sleep 0.1 && gnome-screenshot --display :0 -a 2>/tmp/a >/tmp/a"
+bindsym Print exec "sleep 0.1 && gnome-screenshot --display :1 -a 2>/tmp/a >/tmp/a"
 bindsym Shift+Print exec "gnome-screenshot --window --remove-border"
-bindsym XF86Sleep exec "amixer -D pulse sset Master playback mute && i3lock && sudo pm-suspend"
+bindsym XF86Sleep exec "i3lock && sleep 1 && sudo pm-suspend"
 
 # Spotify
 bindsym XF86AudioPlay exec "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"

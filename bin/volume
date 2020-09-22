@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+import subprocess
+import argparse
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("command", choices=["mute", "up", "down", "mute-mic"])
+    args = parser.parse_args()
+    if args.command == "mute":
+        subprocess.check_call(("pactl", "set-sink-mute", "1", "1"))
+    elif args.command == "up":
+        subprocess.check_call(("pactl", "set-sink-mute", "1", "0"))
+        for volume in subprocess.check_output(("pacmd", "dump-volumes")).decode('utf-8').split("\n"):
+            if volume.startswith("Sink 1"):
+                volume = int(volume.split()[7].replace("%", ""))
+                break
+        else:
+            raise Exception("output Sink 1 not found, can not detect max volume")
+        volume = min(volume + 10, 100)
+        subprocess.check_call(("pactl", "set-sink-volume", "1", f"{volume}%"))
+    elif args.command == "down":
+        subprocess.check_call(("pactl", "set-sink-volume", "1", "-10%"))
+    elif args.command == "mute-mic":
+        subprocess.check_call(("pactl", "set-source-mute", "2", "1"))
+
+
+if __name__ == "__main__":
+    main()
