@@ -9,7 +9,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-fugitive'
+"Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -43,7 +43,7 @@ set incsearch
 set t_Co=256
 set laststatus=2
 set cursorline
-set background=dark
+"set background=dark
 set mousehide
 set history=10000
 set showmatch
@@ -73,7 +73,7 @@ let g:airline_right_sep = '«'
 
 
 
-colorscheme Tomorrow-Night-Eighties
+"colorscheme Tomorrow-Night-Eighties
 let g:airline_theme='simple'
 
 nnoremap <F2> :set nonumber!<CR>

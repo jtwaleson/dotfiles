@@ -13,7 +13,7 @@ def main():
         subprocess.check_call(("pactl", "set-sink-mute", "1", "0"))
         for volume in subprocess.check_output(("pacmd", "dump-volumes")).decode('utf-8').split("\n"):
             if volume.startswith("Sink 1"):
-                volume = int(volume.split()[7].replace("%", ""))
+                volume = int(volume.split()[7].replace("%", "").replace(",", ""))
                 break
         else:
             raise Exception("output Sink 1 not found, can not detect max volume")
