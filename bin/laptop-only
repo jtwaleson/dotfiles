@@ -9,7 +9,7 @@ logger "XYZ: $DISPLAYS"
 
 for d in $DISPLAYS
 do
-    if [ "$d" != "eDP-1" ]; then
+    if [ "$d" != "eDP-1" ] && [ "$d" != "eDP" ]; then
         logger "XYZ: xrandr -d :0 --output $d --off"
         xrandr -d :0 --output $d --off
     fi

@@ -176,20 +176,20 @@ bindsym XF86AudioRaiseVolume exec "/home/jouke/dev/dotfiles/bin/volume up"
 bindsym XF86AudioMicMute exec "/home/jouke/dev/dotfiles/bin/volume mute-mic"
 
 #F5-F8
-bindsym XF86MonBrightnessUp exec "/home/jouke/.local/bin/backlight 100"
-bindsym XF86MonBrightnessDown exec "/home/jouke/.local/bin/backlight -100"
+bindsym XF86MonBrightnessUp exec "/home/jouke/dev/dotfiles/bin/backlight 100"
+bindsym XF86MonBrightnessDown exec "/home/jouke/dev/dotfiles/bin/backlight -100"
 # auto expand everything
-bindsym XF86Display exec "/home/jouke/.local/bin/rearrange-screens"
+bindsym XF86Display exec "/home/jouke/dev/dotfiles/bin/rearrange-screens"
 # disabling all except for laptop
-bindsym Shift+XF86Display exec "/home/jouke/.local/bin/laptop-only"
+bindsym Shift+XF86Display exec "/home/jouke/dev/dotfiles/bin/laptop-only"
 # adding mirrored VGA
 bindsym Ctrl+XF86Display exec "xrandr --auto"
 #bindsym XF86WLAN exec "wlan-switch wifi"
 
 #F9-F12
 bindsym XF86WLAN exec "nmcli r wifi on && nmcli r wwan off"
-bindsym Shift+XF86WLAN exec "/home/jouke/.local/bin/connect-ns"
-#bindsym Shift+XF86WLAN exec "/home/jouke/.local/bin/connect-to-lte"
+bindsym Shift+XF86WLAN exec "/home/jouke/dev/dotfiles/bin/connect-ns"
+#bindsym Shift+XF86WLAN exec "/home/jouke/dev/dotfiles/bin/connect-to-lte"
 bindsym Ctrl+XF86WLAN exec "nmcli r wifi off && nmcli r wwan off"
 #bindsym Ctrl+XF86WLAN exec "nmcli r wifi off && nmcli r wwan off"
 #bindsym XF86Search exec "???"

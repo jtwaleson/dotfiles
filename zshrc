@@ -75,6 +75,9 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

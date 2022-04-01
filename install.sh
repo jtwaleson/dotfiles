@@ -94,10 +94,15 @@ sudo apt install \
     google-chrome-stable \
     spotify-client \
     syncthing \
+    docker-ce docker-ce-cli containerd.io \
     nmon # marker
 
 
+sudo groupadd -f docker
 
+sudo usermod -aG docker $USER
+
+sudo update-alternatives --set editor /usr/bin/vim.basic
 
 
 # manually install:
