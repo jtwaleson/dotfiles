@@ -69,13 +69,24 @@ sudo apt install \
     zsh \
     nmon # marker
 
-pip3 install requests pytest
-
-#@rm ~/.vimrc ~/.zshrc ~/.config/i3/config
+pip3 install \
+    Flask \
+    MonkeyType \
+    black \
+    boto3 \
+    jupyter \
+    mypy \
+    numpy \
+    opencv-python \
+    pyflakes \
+    pytest \
+    requests # marker
 
 ln -sf ~/dev/dotfiles/vimrc ~/.vimrc
 ln -sf ~/dev/dotfiles/zshrc ~/.zshrc
 ln -sf ~/dev/dotfiles/i3config ~/.config/i3/config
+ln -sf ~/dev/dotfiles/gitconfig ~/.gitconfig
+ln -sf ~/dev/dotfiles/gitconfig_easee ~/.gitconfig_easee
 
 
 sudo apt install \
@@ -90,7 +101,4 @@ sudo apt install \
 
 
 # manually install:
-# google chrome
-# VS Code
-# docker
-# spotify
+aws # awscli

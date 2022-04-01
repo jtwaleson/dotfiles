@@ -1,0 +1,17 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Jouke Waleson
+	email = jouke@waleson.com
+
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
+[includeIf "gitdir:~/dev/*easee*/**"]
+    path="~/.gitconfig_easee"
+[core]
+	commentchar = >
+[init]
+	defaultBranch = main

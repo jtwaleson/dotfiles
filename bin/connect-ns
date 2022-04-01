@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+import requests
+from bs4 import BeautifulSoup
+
+session = requests.Session()
+session.post(
+    "http://portal.nstrein.ns.nl/nstrein:main/internet?csrfToken="
+    + BeautifulSoup(session.get("http://portal.nstrein.ns.nl/").text, "html.parser")
+    .find(id="csrfToken")
+    .get("value")
+)

@@ -1,12 +1,16 @@
 #!/bin/sh
 
+logger "XYZ: disabling screens"
+
 set -x
-DISPLAYS=$(xrandr | grep "\sconnected" | awk '{print $1}')
+DISPLAYS=$(xrandr -d :0 | grep "connected" | awk '{print $1}')
+
+logger "XYZ: $DISPLAYS"
 
 for d in $DISPLAYS
 do
-    if [ "$d" != "eDP1" ]; then
-        logger "xrandr --output $d --off"
-        xrandr --output $d --off
+    if [ "$d" != "eDP-1" ]; then
+        logger "XYZ: xrandr -d :0 --output $d --off"
+        xrandr -d :0 --output $d --off
     fi
 done
