@@ -71,6 +71,8 @@ plugins=(
   virtualenv
   heroku
   github
+  docker
+  docker-compose
 )
 
 source $ZSH/oh-my-zsh.sh

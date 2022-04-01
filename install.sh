@@ -104,6 +104,8 @@ sudo usermod -aG docker $USER
 
 sudo update-alternatives --set editor /usr/bin/vim.basic
 
+sudo systemctl enable syncthing@jouke.service
+
 
 # manually install:
 aws # awscli
