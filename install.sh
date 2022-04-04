@@ -30,11 +30,14 @@ sudo apt install \
     imagemagick \
     jq \
     keepassx \
+    libnotify-bin \
     lsb-release \
     moreutils \
     mtr \
     nmap \
     nmon \
+    neovim \
+    python3-neovim \
     ntp \
     openssh-client \
     openssh-server \
@@ -64,6 +67,7 @@ sudo apt install \
     vim \
     vim-tiny \
     vlc \
+    wait-for-it \
     whois \
     xclip \
     zsh \
@@ -88,6 +92,11 @@ ln -sf ~/dev/dotfiles/i3config ~/.config/i3/config
 ln -sf ~/dev/dotfiles/gitconfig ~/.gitconfig
 ln -sf ~/dev/dotfiles/gitconfig_easee ~/.gitconfig_easee
 
+test -d ~/.vim/bundle/Vundle.vim || (mkdir -p ~/.vim/bundle && git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim)
+
+vim +BundleInstall! +qall
+
+mkdir -p ~/.cache/vim-{swap,undo}
 
 sudo apt install \
     code \
@@ -108,4 +117,4 @@ sudo systemctl enable syncthing@jouke.service
 
 
 # manually install:
-aws # awscli
+aws help | cat # awscli

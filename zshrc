@@ -73,6 +73,7 @@ plugins=(
   github
   docker
   docker-compose
+  sudo
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -108,7 +109,9 @@ export EDITOR="$VISUAL"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#
+
+alias vim="nvim"
+
 export PATH="${PATH}:/home/jouke/.local/bin"
 export PATH="${PATH}:/home/jouke/node_modules/.bin"
 export PATH="${PATH}:/home/jouke/dev/dotfiles/bin"

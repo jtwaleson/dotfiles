@@ -2,27 +2,47 @@
 import subprocess
 import argparse
 
+devices = {}
+
+for line in subprocess.check_output(("pacmd", "dump-volumes")).decode('utf-8').split("\n"):
+    try:
+        item, n  = line.split(maxsplit=2)[0:2]
+    except ValueError:
+        continue
+    if item not in devices:
+        devices[item] = list()
+    devices[item].append(n.replace(":", ""))
+
+print(devices)
+
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("command", choices=["mute", "up", "down", "mute-mic"])
     args = parser.parse_args()
     if args.command == "mute":
-        subprocess.check_call(("pactl", "set-sink-mute", "1", "1"))
-    elif args.command == "up":
-        subprocess.check_call(("pactl", "set-sink-mute", "1", "0"))
-        for volume in subprocess.check_output(("pacmd", "dump-volumes")).decode('utf-8').split("\n"):
-            if volume.startswith("Sink 1"):
-                volume = int(volume.split()[7].replace("%", "").replace(",", ""))
-                break
-        else:
-            raise Exception("output Sink 1 not found, can not detect max volume")
-        volume = min(volume + 10, 100)
-        subprocess.check_call(("pactl", "set-sink-volume", "1", f"{volume}%"))
-    elif args.command == "down":
-        subprocess.check_call(("pactl", "set-sink-volume", "1", "-10%"))
+        for sink in devices["Sink"]:
+            subprocess.check_call(("pactl", "set-sink-mute", sink, "1"))
+            subprocess.check_call(("notify-send", "-t", "1000", "Volume ", "Muted"))
+    elif args.command == "up" or args.command == "down":
+        for sink in devices["Sink"]:
+            subprocess.check_call(("pactl", "set-sink-mute", sink, "0"))
+            for volume in subprocess.check_output(("pacmd", "dump-volumes")).decode('utf-8').split("\n"):
+                if volume.startswith("Sink " + sink):
+                    volume = int(volume.split()[7].replace("%", "").replace(",", ""))
+                    break
+            else:
+                raise Exception(f"output Sink {sink} not found, can not detect max volume")
+            if args.command == "down":
+                volume = max(volume - 10, 0)
+            else:
+                volume = min(volume + 10, 100)
+            subprocess.check_call(("pactl", "set-sink-volume", sink, f"{volume}%"))
+            subprocess.check_call(("notify-send", "-t", "200", "Volume", f"{volume}%"))
     elif args.command == "mute-mic":
-        subprocess.check_call(("pactl", "set-source-mute", "2", "1"))
+        for source in devices["Source"]:
+            subprocess.check_call(("pactl", "set-source-mute", source, "toggle"))
+            subprocess.check_call(("notify-send", "-t", "1000", "Volume ", "Microphone mute toggle"))
 
 
 if __name__ == "__main__":

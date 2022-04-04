@@ -1,9 +1,22 @@
 #!/bin/bash
 DIFF=${1:-"0"}
-CUR=$(cat /sys/class/backlight/intel_backlight/brightness)
+
+CUR=$(cat /sys/class/backlight/*/brightness)
+if [ -d /sys/class/backlight/amdgpu_bl0 ]; then
+    MAX=255
+    MIN=0
+    INC=30
+else
+    MAX=850
+    MIN=100
+    INC=100
+fi
+DIFF=$(( $DIFF < 0 ? -$INC : $INC ))
+
 NEW=$(( $CUR + $DIFF ))
-MAX=850
-MIN=100
+
 NEW=$(( $NEW > $MIN ? $NEW : $MIN ))
 NEW=$(( $NEW < $MAX ? $NEW : $MAX ))
-echo $NEW | sudo tee /sys/class/backlight/intel_backlight/brightness
+
+echo $NEW | sudo tee /sys/class/backlight/*/brightness
+notify-send -t 200 "Brightness" "$(cat /sys/class/backlight/*/brightness) of $MAX"
