@@ -26,7 +26,8 @@ def main():
             subprocess.check_call(("notify-send", "-t", "1000", "Volume ", "Muted"))
     elif args.command == "up" or args.command == "down":
         for sink in devices["Sink"]:
-            subprocess.check_call(("pactl", "set-sink-mute", sink, "0"))
+            if args.command == "up":
+                subprocess.check_call(("pactl", "set-sink-mute", sink, "0"))
             for volume in subprocess.check_output(("pacmd", "dump-volumes")).decode('utf-8').split("\n"):
                 if volume.startswith("Sink " + sink):
                     volume = int(volume.split()[7].replace("%", "").replace(",", ""))
