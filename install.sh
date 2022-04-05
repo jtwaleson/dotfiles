@@ -53,6 +53,7 @@ sudo apt install \
     reptyr \
     rsync \
     silversearcher-ag \
+    smartmontools \
     sshfs \
     strace \
     telnet \
