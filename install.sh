@@ -33,7 +33,7 @@ sudo apt install \
     libnotify-bin \
     lsb-release \
     moreutils \
-    mtr \
+    mtr-tiny \
     nmap \
     nmon \
     neovim \
@@ -92,6 +92,8 @@ ln -sf ~/dev/dotfiles/zshrc ~/.zshrc
 ln -sf ~/dev/dotfiles/i3config ~/.config/i3/config
 ln -sf ~/dev/dotfiles/gitconfig ~/.gitconfig
 ln -sf ~/dev/dotfiles/gitconfig_easee ~/.gitconfig_easee
+
+gsettings set org.gnome.gnome-screenshot auto-save-directory "~/Downloads/"
 
 test -d ~/.vim/bundle/Vundle.vim || (mkdir -p ~/.vim/bundle && git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim)
 
