@@ -5,6 +5,7 @@ set -euxo pipefail
 sudo apt update
 sudo apt install \
     apt-transport-https \
+    bsdmainutils \
     bzip2 \
     ca-certificates \
     coreutils \
@@ -37,6 +38,7 @@ sudo apt install \
     nmap \
     nmon \
     neovim \
+    pdftk \
     python3-neovim \
     ntp \
     openssh-client \
@@ -92,6 +94,8 @@ ln -sf ~/dev/dotfiles/zshrc ~/.zshrc
 ln -sf ~/dev/dotfiles/i3config ~/.config/i3/config
 ln -sf ~/dev/dotfiles/gitconfig ~/.gitconfig
 ln -sf ~/dev/dotfiles/gitconfig_easee ~/.gitconfig_easee
+mkdir -p ~/.config/i3status
+ln -sf ~/dev/dotfiles/i3statusconfig ~/.config/i3status/config
 
 gsettings set org.gnome.gnome-screenshot auto-save-directory "~/Downloads/"
 
