@@ -74,6 +74,8 @@ plugins=(
   docker
   docker-compose
   sudo
+  systemd
+  debian
 )
 
 source $ZSH/oh-my-zsh.sh
