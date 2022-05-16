@@ -19,7 +19,9 @@ echo "opening disk 3"
 test -b /dev/mapper/crypt3 || echo -n "$x" | cryptsetup luksOpen /dev/sdd crypt3
 
 echo "mounting volume"
-mount | grep /mnt/btrfs || mount -t btrfs -o noatime,nodiratime /dev/mapper/crypt1 /mnt/btrfs
+mount | grep /mnt/btrfs || mount /mnt/btrfs
+#mount | grep /mnt/btrfs || mount -t btrfs -o noatime,nodiratime /dev/mapper/crypt1 /mnt/btrfs
 
-echo "restarting plex"
-service plexmediaserver restart
+#echo "restarting plex"
+#service plexmediaserver restart
+systemctl start syncthing@jouke.service transmission-daemon.service plexmediaserver.service
