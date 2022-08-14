@@ -35,23 +35,23 @@ sudo apt install \
     lsb-release \
     moreutils \
     mtr-tiny \
-    nodejs \
-    npm \
+    neovim \
     nmap \
     nmon \
-    neovim \
-    pdftk \
-    python3-neovim \
+    nodejs \
+    npm \
     ntp \
     openssh-client \
     openssh-server \
     pavucontrol \
+    pdftk \
     postgresql-client \
     powertop \
     procps \
     pwgen \
     python-is-python3 \
     python3-dev \
+    python3-neovim \
     python3-pip \
     python3-venv \
     reptyr \
