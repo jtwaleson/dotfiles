@@ -35,6 +35,8 @@ sudo apt install \
     lsb-release \
     moreutils \
     mtr-tiny \
+    nodejs \
+    npm \
     nmap \
     nmon \
     neovim \
