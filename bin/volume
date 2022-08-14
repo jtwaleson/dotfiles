@@ -35,9 +35,9 @@ def main():
             else:
                 raise Exception(f"output Sink {sink} not found, can not detect max volume")
             if args.command == "down":
-                volume = max(volume - 10, 0)
+                volume = max(volume - 5, 0)
             else:
-                volume = min(volume + 10, 100)
+                volume = min(volume + 5, 100)
             subprocess.check_call(("pactl", "set-sink-volume", sink, f"{volume}%"))
             subprocess.check_call(("notify-send", "-t", "200", "Volume", f"{volume}%"))
     elif args.command == "mute-mic":

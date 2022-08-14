@@ -117,3 +117,7 @@ alias vim="nvim"
 export PATH="${PATH}:/home/jouke/.local/bin"
 export PATH="${PATH}:/home/jouke/node_modules/.bin"
 export PATH="${PATH}:/home/jouke/dev/dotfiles/bin"
+export GOPATH=$HOME/.local/go/
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+alias gam="/home/jouke/.local/bin/gamadv-xtd3/gam"

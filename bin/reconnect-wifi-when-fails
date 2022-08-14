@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+import platform
+import subprocess
+import time
+
+
+def ping(host):
+    """
+    Returns True if host (str) responds to a ping request.
+    Remember that a host may not respond to a ping (ICMP) request even if the host name is valid.
+    """
+
+    # Option for the number of packets as a function of
+    param = '-n' if platform.system().lower()=='windows' else '-c'
+
+    # Building the command. Ex: "ping -c 1 google.com"
+    command = ['ping', "-w", "1", param, '1', host]
+
+    return subprocess.call(command, stdout=subprocess.DEVNULL) == 0
+
+
+
+while True:
+    if not ping("8.8.8.8") and not ping("8.8.8.8"):
+        print("reconnecting")
+        u = "ada4e0eb-d9e5-4f2c-91db-d6d872baf0cb"
+        subprocess.call(('nmcli', 'c', 'down', u))
+        subprocess.call(('nmcli', 'c', 'up', u))
+        #subprocess.call(('nmcli', 'r', 'wifi', 'off'))
+        #time.sleep(1)
+        #subprocess.call(('nmcli', 'r', 'wifi', 'on'))
+        time.sleep(5)
+    print("good")
+    time.sleep(0.1)
+

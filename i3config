@@ -198,7 +198,7 @@ bindsym Shift+XF86Tools exec "i3lock && sleep 1 && systemctl suspend"
 bindsym Ctrl+XF86Tools exec "i3lock && sleep 1 && systemctl hibernate"
 
 # Others
-bindsym --release Print exec "sleep 0.1 && gnome-screenshot --display :0 -a 2>/tmp/a >/tmp/a"
+bindsym --release Print exec "sleep 0.1 && gnome-screenshot --display $DISPLAY -a 2>/tmp/a >/tmp/a"
 bindsym --release Shift+Print exec "gnome-screenshot --window --remove-border"
 
 bindsym XF86Sleep exec "i3lock"

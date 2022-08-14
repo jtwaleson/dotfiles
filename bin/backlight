@@ -5,7 +5,7 @@ CUR=$(cat /sys/class/backlight/*/brightness)
 if [ -d /sys/class/backlight/amdgpu_bl0 ]; then
     MAX=255
     MIN=0
-    INC=30
+    INC=10
 else
     MAX=850
     MIN=100
