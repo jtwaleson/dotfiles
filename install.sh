@@ -38,8 +38,6 @@ sudo apt install \
     neovim \
     nmap \
     nmon \
-    nodejs \
-    npm \
     ntp \
     openssh-client \
     openssh-server \
@@ -77,6 +75,11 @@ sudo apt install \
     xclip \
     zsh \
     nmon # marker
+
+
+curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+apt-get install -y nodejs
+
 
 pip3 install \
     Flask \
