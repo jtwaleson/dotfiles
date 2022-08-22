@@ -77,8 +77,8 @@ sudo apt install \
     nmon # marker
 
 
-curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-apt-get install -y nodejs
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo bash -
+sudo apt-get install -y nodejs
 
 
 pip3 install \
