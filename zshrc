@@ -11,7 +11,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 ZSH_THEME="tjkirch"
 
 
-alias g='git'
 alias gfr='git fetch && git rebase'
 alias gur='BRANCH=$(git symbolic-ref --short HEAD) && git branch --set-upstream-to=origin/$BRANCH $BRANCH'
 
@@ -65,17 +64,19 @@ alias gur='BRANCH=$(git symbolic-ref --short HEAD) && git branch --set-upstream-
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  python
-  vim-interaction
-  virtualenv
-  heroku
-  github
+  aws
+  debian
   docker
   docker-compose
+  git
+  github
+  heroku
+  python
   sudo
   systemd
-  debian
+  vim-interaction
+  virtualenv
+  virtualenvwrapper
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -121,3 +122,5 @@ export GOPATH=$HOME/.local/go/
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 alias gam="/home/jouke/.local/bin/gamadv-xtd3/gam"
+
+export VIRTUAL_ENV_DISABLE_PROMPT=

@@ -6,6 +6,10 @@ if [ -d /sys/class/backlight/amdgpu_bl0 ]; then
     MAX=255
     MIN=0
     INC=10
+elif [ -d /sys/class/backlight/intel_backlight ]; then
+    MAX=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+    MIN=100
+    INC=1000
 else
     MAX=850
     MIN=100

@@ -193,9 +193,15 @@ bindsym Shift+XF86WLAN exec "/home/jouke/dev/dotfiles/bin/connect-ns"
 bindsym Ctrl+XF86WLAN exec "nmcli r wifi off && nmcli r wwan off"
 #bindsym Ctrl+XF86WLAN exec "nmcli r wifi off && nmcli r wwan off"
 #bindsym XF86Search exec "???"
+
+# T440s / T495s
 bindsym XF86Tools exec "i3lock"
 bindsym Shift+XF86Tools exec "i3lock && sleep 1 && systemctl suspend"
 bindsym Ctrl+XF86Tools exec "i3lock && sleep 1 && systemctl hibernate"
+# T14s
+bindsym XF86Favorites exec "i3lock"
+bindsym Shift+XF86Favorites exec "i3lock && sleep 1 && systemctl suspend"
+bindsym Ctrl+XF86Favorites exec "i3lock && sleep 1 && systemctl hibernate"
 
 # Others
 bindsym --release Print exec "sleep 0.1 && gnome-screenshot --display $DISPLAY -a 2>/tmp/a >/tmp/a"
