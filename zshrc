@@ -64,19 +64,21 @@ alias gur='BRANCH=$(git symbolic-ref --short HEAD) && git branch --set-upstream-
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  autojump
   aws
+  azure
   debian
   docker
   docker-compose
   git
   github
   heroku
+  kubectl
   python
   sudo
   systemd
   vim-interaction
   virtualenv
-  virtualenvwrapper
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -121,6 +123,16 @@ export PATH="${PATH}:/home/jouke/dev/dotfiles/bin"
 export GOPATH=$HOME/.local/go/
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
+#2023-11-16 wtf is this??
 alias gam="/home/jouke/.local/bin/gamadv-xtd3/gam"
 
+alias reset="tput reset" # https://news.ycombinator.com/item?id=39638021
+
 export VIRTUAL_ENV_DISABLE_PROMPT=
+
+#2023-11-16 add minikube kubectl for blockbax
+
+#alias kubectl="minikube kubectl --"
+#eval "$(fzf --zsh)"
+
+eval "$(atuin init zsh)"

@@ -3,11 +3,13 @@
 	name = Jouke Waleson
 	email = jouke@waleson.com
 
-[filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+[diff "scanbin"]
+    textconv = xxd -seek 296 -c 158
+    binary = true
+
+[diff "peakbin"]
+    textconv = xxd -seek 68 -c 16
+    binary = true
 
 [includeIf "gitdir:~/dev/*easee*/**"]
     path="~/.gitconfig_easee"
@@ -15,3 +17,18 @@
 	commentchar = >
 [init]
 	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[commit]
+    verbose = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+

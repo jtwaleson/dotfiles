@@ -9,6 +9,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'rickhowe/diffchar.vim'
 "Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'vim-airline/vim-airline'
@@ -18,6 +19,7 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'posva/vim-vue'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'juliosueiras/vim-terraform-completion'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -75,6 +77,10 @@ let g:CommandTPreferredImplementation='lua'
 nnoremap <CR> :noh<CR><CR>
 
 
+" disable underline when a sentence is selected
+hi CursorLineNr    term=bold cterm=bold ctermfg=012 gui=bold
+
+
 
 "colorscheme Tomorrow-Night-Eighties
 let g:airline_theme='simple'
@@ -91,7 +97,9 @@ if has('persistent_undo')
     set undoreload=10000
 endif
 
-highlight ExtraWhitespace ctermbg=red guibg=red ctermfg=white
-match ExtraWhitespace /\s\+$\| \+\ze\t\| [^\t]\zs\t\+\| ^\t*\zs \+\|\t/
+
+le g:DiffUnit="Word1"
+"highlight ExtraWhitespace ctermbg=red guibg=red ctermfg=white
+"match ExtraWhitespace /\s\+$\| \+\ze\t\| [^\t]\zs\t\+\| ^\t*\zs \+\|\t/
 set exrc
 set secure

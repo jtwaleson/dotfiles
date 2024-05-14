@@ -4,7 +4,13 @@ DISPLAYS=$(xrandr | grep "\sconnected" | awk '{print $1}')
 
 for d in $DISPLAYS
 do
-    if [ "$d" != "eDP-1" ]
+    # this is a syntax error
+    # if [ "$d" == "DP-3" ]
+    if [ "$d" = "DP-3" ]
+    then
+        logger "xrandr --output $d --left-of eDP-1"
+        xrandr --output $d --left-of eDP-1
+    elif [ "$d" != "eDP-1" ]
     then
         logger "xrandr --output $d --auto"
         xrandr --output $d --auto

@@ -15,6 +15,7 @@ sudo apt install \
     dnsutils \
     dos2unix \
     feh \
+    fonts-noto-color-emoji \
     ffmpeg \
     file \
     g++ \
