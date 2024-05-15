@@ -1,24 +1,48 @@
-#!/bin/sh
+#!/usr/bin/env python3
+import subprocess
 
-DISPLAYS=$(xrandr | grep "\sconnected" | awk '{print $1}')
+def main():
 
-for d in $DISPLAYS
-do
-    # this is a syntax error
-    # if [ "$d" == "DP-3" ]
-    if [ "$d" = "DP-3" ]
-    then
-        logger "xrandr --output $d --left-of eDP-1"
-        xrandr --output $d --left-of eDP-1
-    elif [ "$d" != "eDP-1" ]
-    then
-        logger "xrandr --output $d --auto"
-        xrandr --output $d --auto
-        if [ -n $PREV ]
-        then
-            logger "xrandr --output $d --right-of $PREV"
-            xrandr --output $d --right-of $PREV
-        fi
-    fi
-    PREV=$d
-done
+
+    # disconnected lines look like this:
+    #DP-1 disconnected (normal left inverted right x axis y axis)
+    #DP-2 disconnected 2560x1600+0+0 (normal left inverted right x axis y axis) 0mm x 0mm
+    # any disconnected that has a resolution defined like in DP-2 should be set to off
+    lines = subprocess.check_output("xrandr | grep '\sdisconnected' | grep 'mm$' || true", shell=True).decode("utf-8").strip().split("\n")
+    for line in lines:
+        print(line)
+        if line:
+            name = line.split()[0]
+            subprocess.run(f"xrandr --output {name} --off", shell=True)
+
+    # now rearrange the screens
+    lines = subprocess.check_output("xrandr | grep '\sconnected' -A 1", shell=True).decode("utf-8").strip().split("\n")
+    lines = list(filter(lambda x: x != "--", lines))
+
+    # ['eDP-1 connected primary 1920x1080+3440+0 (normal left inverted right x axis y axis) 309mm x 174mm', '   1920x1080     60.05*+  60.01    59.97    59.96    59.93  ', 'DP-3 connected 3440x1440+0+0 (normal left inverted right x axis y axis) 797mm x 334mm', '   3440x1440     59.97*+']
+
+    # create a mapping from screen name to preferred resolution and whether it is primary or not
+    # note that there are two lines per screen, one with the name and one with the resolution
+    screens = {}
+    for i in range(0, len(lines), 2):
+        name = lines[i].split()[0]
+        resolution = lines[i+1].strip().split()[0]
+        primary = "primary" in lines[i]
+        screens[name] = (resolution, primary)
+
+    primary = list(filter(lambda x: x[1][1], screens.items()))[0]
+
+    rest = list(filter(lambda x: not x[1][1], screens.items()))
+
+    last = primary[0]
+    for i, (name, resolution) in enumerate(rest):
+        if resolution[0] == '2560x1600':
+            # my side screen
+            subprocess.run(f"xrandr --output {name} --auto --left-of {primary[0]}", shell=True)
+        else:
+            subprocess.run(f"xrandr --output {name} --auto --right-of {last}", shell=True)
+            last = name
+
+
+if __name__ == "__main__":
+    main()
