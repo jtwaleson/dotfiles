@@ -136,3 +136,8 @@ export VIRTUAL_ENV_DISABLE_PROMPT=
 #eval "$(fzf --zsh)"
 
 eval "$(atuin init zsh)"
+
+#. "$HOME/.atuin/bin/env"
+export PATH=$PATH:/home/jouke/.pixi/bin
+export DENO_INSTALL="/home/jouke/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"

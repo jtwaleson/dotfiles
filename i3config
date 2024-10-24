@@ -10,6 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 exec --no-startup-id nm-applet
 exec feh --bg-scale /home/jouke/dev/dotfiles/gears0.jpg
+exec xautolock -time 5 -locker i3lock
 
 set $mod Mod4
 
@@ -223,6 +224,7 @@ bar {
         status_command i3status
 }
 for_window [instance=".*google.*"] floating enable
+for_window [instance=".*screenshot.*"] floating enable
 #for_window [instance=".*Navigator.*"] floating enable
 #for_window [window_role="browser"] floating enable
 

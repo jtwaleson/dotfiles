@@ -19,7 +19,6 @@ Plugin 'vim-syntastic/syntastic'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'posva/vim-vue'
 Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'juliosueiras/vim-terraform-completion'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

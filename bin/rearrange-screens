@@ -38,7 +38,9 @@ def main():
     for i, (name, resolution) in enumerate(rest):
         if resolution[0] == '2560x1600':
             # my side screen
-            subprocess.run(f"xrandr --output {name} --auto --left-of {primary[0]}", shell=True)
+            # pos = "above"
+            pos = "left-of"
+            subprocess.run(f"xrandr --output {name} --auto --{pos} {primary[0]}", shell=True)
         else:
             subprocess.run(f"xrandr --output {name} --auto --right-of {last}", shell=True)
             last = name

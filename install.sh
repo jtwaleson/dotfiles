@@ -73,6 +73,7 @@ sudo apt install \
     vlc \
     wait-for-it \
     whois \
+    xautolock \
     xclip \
     zsh \
     nmon # marker
