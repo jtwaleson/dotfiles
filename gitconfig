@@ -2,6 +2,7 @@
 [user]
 	name = Jouke Waleson
 	email = jouke@waleson.com
+	signingkey = jouke@waleson.com
 
 [diff "scanbin"]
     textconv = xxd -seek 296 -c 158
@@ -25,6 +26,7 @@
 
 [commit]
     verbose = true
+	gpgsign = true
 [credential "https://github.com"]
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
@@ -32,3 +34,9 @@
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 
+[push]
+	autoSetupRemote = true
+[fetch]
+	prune = true
+[gpg]
+	program = gpg

@@ -2,21 +2,110 @@
 import subprocess
 
 def main():
+    # Get xrandr output
+    try:
+        xrandr_output = subprocess.check_output("xrandr", shell=True).decode("utf-8")
+        lines = xrandr_output.split("\n")
+    except:
+        return
 
+    # Check if we're on laptop (eDP-1 exists and is connected)
+    is_laptop = False
+    giant_screen = None
+    giant_screen_resolution = None
+    
+    for i, line in enumerate(lines):
+        if "eDP-1" in line and "connected" in line:
+            is_laptop = True
+            break
+        # Check for DisplayPort-0 (giant screen on desktop)
+        if "DisplayPort-0" in line and "connected" in line:
+            giant_screen = "DisplayPort-0"
+            # Try to find resolution in current line or next few lines
+            for j in range(i, min(i+5, len(lines))):
+                if "x" in lines[j] and any(char.isdigit() for char in lines[j]):
+                    # Extract resolution (format: 3840x2160 or similar)
+                    parts = lines[j].split()
+                    for part in parts:
+                        if "x" in part and part[0].isdigit():
+                            try:
+                                width, height = part.split("x")
+                                if width.isdigit() and height.isdigit():
+                                    giant_screen_resolution = part
+                                    break
+                            except:
+                                pass
+                    if giant_screen_resolution:
+                        break
+            break
+
+    # Delete virtual monitors if they exist (regardless of detection)
+    for monitor in ["left", "right"]:
+        try:
+            subprocess.run(f"xrandr --delmonitor {monitor}", shell=True, check=False, stderr=subprocess.DEVNULL)
+        except:
+            pass
+
+    # Handle laptop setup (eDP-1 with DisplayPort-0 at 3840x1200)
+    if is_laptop:
+        # Check if DisplayPort-0 exists with 3840x1200 resolution
+        has_3840x1200 = False
+        for i, line in enumerate(lines):
+            if "DisplayPort-0" in line and "connected" in line:
+                # Check if 3840x1200 is in the connection line or the next few lines
+                if "3840x1200" in line:
+                    has_3840x1200 = True
+                    break
+                # Check next few lines for 3840x1200 resolution
+                for j in range(i+1, min(i+5, len(lines))):
+                    if "3840x1200" in lines[j]:
+                        has_3840x1200 = True
+                        break
+                if has_3840x1200:
+                    break
+
+        # Create virtual monitors if DisplayPort-0 with 3840x1200 is detected
+        if has_3840x1200:
+            subprocess.run("xrandr --setmonitor left 2560/700x1200/330+1920+0 DisplayPort-0", shell=True)
+            subprocess.run("xrandr --setmonitor right 1280/350x1200/330+4480+0 none", shell=True)
+    # Handle desktop setup (giant screen only)
+    desktop_virtual_monitors_created = False
+    if not is_laptop and giant_screen and giant_screen_resolution:
+        # Split the giant screen left/right
+        # Parse resolution
+        try:
+            width, height = giant_screen_resolution.split("x")
+            width = int(width)
+            height = int(height)
+            
+            # Split roughly in half (left side slightly larger)
+            left_width = width * 2 // 3
+            right_width = width - left_width
+            
+            # Create virtual monitors for left and right halves
+            subprocess.run(f"xrandr --setmonitor left {left_width}/{width//10}x{height}/{height//10}+0+0 {giant_screen}", shell=True)
+            subprocess.run(f"xrandr --setmonitor right {right_width}/{width//10}x{height}/{height//10}+{left_width}+0 none", shell=True)
+            desktop_virtual_monitors_created = True
+        except Exception as e:
+            print(f"Error creating virtual monitors: {e}")
 
     # disconnected lines look like this:
     #DP-1 disconnected (normal left inverted right x axis y axis)
     #DP-2 disconnected 2560x1600+0+0 (normal left inverted right x axis y axis) 0mm x 0mm
     # any disconnected that has a resolution defined like in DP-2 should be set to off
-    lines = subprocess.check_output("xrandr | grep '\sdisconnected' | grep 'mm$' || true", shell=True).decode("utf-8").strip().split("\n")
+    lines = subprocess.check_output("xrandr | grep '\\sdisconnected' | grep 'mm$' || true", shell=True).decode("utf-8").strip().split("\n")
     for line in lines:
         print(line)
         if line:
             name = line.split()[0]
             subprocess.run(f"xrandr --output {name} --off", shell=True)
 
+    # Skip rearrangement if we're on desktop with virtual monitors (they're already positioned correctly)
+    if desktop_virtual_monitors_created:
+        return
+
     # now rearrange the screens
-    lines = subprocess.check_output("xrandr | grep '\sconnected' -A 1", shell=True).decode("utf-8").strip().split("\n")
+    lines = subprocess.check_output("xrandr | grep '\\sconnected' -A 1", shell=True).decode("utf-8").strip().split("\n")
     lines = list(filter(lambda x: x != "--", lines))
 
     # ['eDP-1 connected primary 1920x1080+3440+0 (normal left inverted right x axis y axis) 309mm x 174mm', '   1920x1080     60.05*+  60.01    59.97    59.96    59.93  ', 'DP-3 connected 3440x1440+0+0 (normal left inverted right x axis y axis) 797mm x 334mm', '   3440x1440     59.97*+']
@@ -25,19 +114,29 @@ def main():
     # note that there are two lines per screen, one with the name and one with the resolution
     screens = {}
     for i in range(0, len(lines), 2):
-        name = lines[i].split()[0]
-        resolution = lines[i+1].strip().split()[0]
-        primary = "primary" in lines[i]
-        screens[name] = (resolution, primary)
+        if i+1 < len(lines):
+            name = lines[i].split()[0]
+            resolution = lines[i+1].strip().split()[0]
+            primary = "primary" in lines[i]
+            screens[name] = (resolution, primary)
 
-    primary = list(filter(lambda x: x[1][1], screens.items()))[0]
+    # Find primary screen, or use first screen if no primary exists
+    primary_screens = list(filter(lambda x: x[1][1], screens.items()))
+    if primary_screens:
+        primary = primary_screens[0]
+    elif screens:
+        # No primary screen, use first screen
+        primary = list(screens.items())[0]
+    else:
+        # No screens found, exit
+        return
 
-    rest = list(filter(lambda x: not x[1][1], screens.items()))
+    rest = list(filter(lambda x: not x[1][1] or x[0] != primary[0], screens.items()))
 
     last = primary[0]
     for i, (name, resolution) in enumerate(rest):
-        if resolution[0] == '2560x1600':
-            # my side screen
+        if resolution[0] == '2560x1600' or resolution[0] == '3440x1440':
+            # my portable side screen / my 34" wide screen
             # pos = "above"
             pos = "left-of"
             subprocess.run(f"xrandr --output {name} --auto --{pos} {primary[0]}", shell=True)

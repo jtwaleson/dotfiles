@@ -14,3 +14,8 @@ do
         xrandr -d $DISPLAY --output $d --off
     fi
 done
+
+# Delete virtual monitors if they exist
+logger "XYZ: deleting virtual monitors"
+xrandr --delmonitor left 2>/dev/null || true
+xrandr --delmonitor right 2>/dev/null || true

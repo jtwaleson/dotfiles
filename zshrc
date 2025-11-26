@@ -134,6 +134,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT=
 
 #alias kubectl="minikube kubectl --"
 #eval "$(fzf --zsh)"
+export PATH="/home/jouke/.atuin/bin:$PATH"
 
 eval "$(atuin init zsh)"
 
@@ -141,3 +142,22 @@ eval "$(atuin init zsh)"
 export PATH=$PATH:/home/jouke/.pixi/bin
 export DENO_INSTALL="/home/jouke/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+[[ "$TERM_PROGRAM" == "vscode" ]] && unset ARGV0 || true
+
+# pnpm
+export PNPM_HOME="/home/jouke/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+eval "$(uv generate-shell-completion zsh)"
+eval "$(task --completion zsh)"
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && unset ARGV0
+
+if [[ -n "$APPIMAGE" && "$APPIMAGE" == cursor ]]; then
+function cargo() {
+env -i HOME=$HOME PATH=$HOME/.cargo/bin:/usr/bin:/bin "$HOME/.cargo/bin/cargo" "$@"
+}
+fi

@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+import requests
+from bs4 import BeautifulSoup
+
+session = requests.Session()
+response = session.get("https://login.internetaccess.io/portal/index/skip-login")
+session_id = None
+for key, value in session.cookies.items():
+    if key == "PHPSESSID":
+        session_id = value
+        break
+else:
+    raise Exception("not found")
+
+
+response = session.get(f"https://login.internetaccess.io/portal/index/skip-login?sid={session_id}")
+print(response.status_code)

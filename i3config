@@ -10,7 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 exec --no-startup-id nm-applet
 exec feh --bg-scale /home/jouke/dev/dotfiles/gears0.jpg
-exec xautolock -time 5 -locker i3lock
+exec /home/jouke/dev/dotfiles/bin/xidlehook --not-when-audio --timer 300 'i3lock' ''
 
 set $mod Mod4
 
